@@ -9,6 +9,22 @@ if (year%4==0 and year %100!=0) or (year%400==0):
     print("leap year")
 # 3. Write code that will print out the anagrams (words that use the same
 # letters) from a paragraph of text.
+class Word(object):
+	def __init__(self, string, index):
+		self.string = string
+		self.index = index
+def createDupArray(string, size):
+	dupArray = []
+	for i in xrange(size):
+		dupArray.append(Word(string[i], i))
+	return dupArray
+def printAnagramsTogether(wordArr, size):
+	dupArray = createDupArray(wordArr, size)
+	for i in xrange(size):
+		dupArray[i].string = ''.join(sorted(dupArray[i].string))
+	dupArray = sorted(dupArray, key = lambda k: k.string)
+	for word in dupArray:
+		print wordArr[word.index],
 
 # 4. Create a list. Append the names of your colleagues and friends to it.
 # Has the id of the list changed? Sort the list. What is the first item on
@@ -89,7 +105,29 @@ def is_prime(num):
 # 9. Write a binary search function. It should take a sorted sequence and
 # the item it is looking for. It should return the index of the item if found.
 # It should return -1 if the item is not found.
-def binary_search(sequence,key):
+def binary_search(arr, low, high, key):
+ 
+    # Check base case
+    if high >= low:
+ 
+        mid = (high + low) // 2
+ 
+        # If element is present at the middle itself
+        if arr[mid] == key:
+            return mid
+ 
+        # If element is smaller than mid, then it can only
+        # be present in left subarray
+        elif arr[mid] > key:
+            return binary_search(arr, low, mid - 1, key)
+ 
+        # Else the element can only be present in right subarray
+        else:
+            return binary_search(arr, mid + 1, high, key)
+ 
+    else:
+        # Element is not present in the array
+        return -1
 
 # 10. Write a function that takes camel-cased strings (i.e.
 # ThisIsCamelCased), and converts them to snake case (i.e.
@@ -214,7 +252,37 @@ print('''You can perform operation
 # 19. Write a Python class to find validity of a string of parentheses, '(', ')',
 # '{', '}', '[' and ']. These brackets must be close in the correct order, for
 # example "()" and "()[]{}" are valid but "[)", "({[)]" and "{{{" are invalid
+class Is_valid_parenthese:
+   def is_valid_parenthese(self, str1):
+        stack, pchar = [], {"(": ")", "{": "}", "[": "]"}
+        for parenthese in str1:
+            if parenthese in pchar:
+                stack.append(parenthese)
+            elif len(stack) == 0 or pchar[stack.pop()] != parenthese:
+                return False
+        return len(stack) == 0
 # 20. Write a Python class to find the three elements that sum to zero from
 # a list of n real numbers.
 # Input array : [-25, -10, -7, -3, 2, 4, 8, 10]
 # Output : [[-10, 2, 8], [-7, -3, 10]
+class Sumofthreeemelnts:
+ def threeSum(self, nums):
+        nums, result, i = sorted(nums), [], 0
+        while i < len(nums) - 2:
+            j, k = i + 1, len(nums) - 1
+            while j < k:
+                if nums[i] + nums[j] + nums[k] < 0:
+                    j += 1
+                elif nums[i] + nums[j] + nums[k] > 0:
+                    k -= 1
+                else:
+                    result.append([nums[i], nums[j], nums[k]])
+                    j, k = j + 1, k - 1
+                    while j < k and nums[j] == nums[j - 1]:
+                        j += 1
+                    while j < k and nums[k] == nums[k + 1]:
+                        k -= 1
+            i += 1
+            while i < len(nums) - 2 and nums[i] == nums[i - 1]:
+                i += 1
+        return result
