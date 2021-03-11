@@ -64,7 +64,7 @@ averageage=sumofage/3
 for people in data:
     if people[2] is None:
         print(people)
-    if  people[2]>averageage:
+    elif people[2]>averageage:
         print('old')
         print(people)
     else:
@@ -75,21 +75,47 @@ for people in data:
 
 # 8. Write a function, is_prime, that takes an integer and returns True if the
 # number is prime and False if the number is not prime.
+import math
+def is_prime(num):
+    if num<=1:
+        return False
+    rootofint=math.floor(math.sqrt(num))
+    for i in range(2,rootofint+1):
+        if num%i==0:
+            return False
+    return True
+
+
 # 9. Write a binary search function. It should take a sorted sequence and
 # the item it is looking for. It should return the index of the item if found.
 # It should return -1 if the item is not found.
+def binary_search(sequence,key):
+
 # 10. Write a function that takes camel-cased strings (i.e.
 # ThisIsCamelCased), and converts them to snake case (i.e.
 # this_is_camel_cased). Modify the function by adding an argument,
 # separator, so it will also convert to the kebab case
 # (i.e.this-is-camel-case) as well.
+camelcase='ThisIsCamelCased'
+def CameltoSnake(string_var,seperator):
+    for character in string_var:
+    
+
 # 11. Create a variable, filename. Assuming that it has a three-letter
 # extension, and using slice operations, find the extension. For
 # README.txt, the extension should be txt. Write code using slice
 # operations that will give the name without the extension. Does your
 # code work on filenames of arbitrary length?
+word='hello.txt'
+print(word[0:-4])
 # 12. Create a function, is_palindrome, to determine if a supplied word is
 # the same if the letters are reversed.
+def is_palindrome(string):
+    string_reversed=''.join(reversed(string))
+    if string==string_reversed:
+        print('palindrome')
+    else: 
+        print('not palindrome')
 # 13. Write a function to write a comma-separated value (CSV) file. It
 # should accept a filename and a list of tuples as parameters. The
 # tuples should have a name, address, and age. The file should create
@@ -100,12 +126,38 @@ for people in data:
 # name,address,age
 # George,4312 Abbey Road,22
 # John,54 Love Ave,21
+import csv
+file='hello.txt'
+tuple_info=[('George', '4312 Abbey Road', 22), ('John', '54 Love Ave',
+21)]
+def comma_seperated_function(file,tuple_info):
+    csvfile=open(file,'w',newline='')
+    obj=csv.writer(csvfile)
+    obj.writerows(tuple_info)
+    csvfile.close()
+
+
 # 14. Write a function that reads a CSV file. It should return a list of
 # dictionaries, using the first row as key names, and each subsequent
 # row as values for those keys.
 # For the data in the previous example it would return:
 # [{'name': 'George', 'address': '4312 Abbey Road', 'age': 22}, {'name':
 # 'John', 'address': '54 Love Ave', 'age': 21}]
+def csv_as_dict(file, ref_header, delimiter=None):
+
+    import csv
+    if not delimiter:
+        delimiter = ';'
+    reader = csv.DictReader(open(file), delimiter=delimiter)
+    result = {}
+    for row in reader:
+        print(row)
+        key = row.pop(ref_header)
+        if key in result:
+            # implement your duplicate row handling here
+            pass
+        result[key] = row
+    return result
 # 15. Imagine you are designing a banking application. What would a
 # customer look like? What attributes would she have? What methods
 # would she have?
@@ -116,6 +168,44 @@ for people in data:
 # 17. Write a program that serves as a basic calculator. It asks for two
 # numbers, then it asks for an operator. Gracefully deal with input that
 # doesn't cleanly convert to numbers. Deal with division by zero errors.
+num1=int(input("Enter a number"))
+num1=int(input("Enter another number"))
+def addition(num1,num2):
+    num1 += num2
+    return num1
+def subtraction(num1,num2):
+    num1 -= num2
+    return num1
+def mul(num1,num2):
+    num1 *= num2
+    return num1
+def division(num1,num2):
+    try:
+        num1 /= num2
+    except ValueError:
+        print("Can't divide by zero")
+    return num1
+
+def module(num1,num2):
+    num1 %= num2
+    return num1
+switcher = {
+    1: addition,
+    2: subtraction,
+    3: mul,
+    4: division,
+    5: module
+    }
+def switch(operation):
+    return switcher.get(operation, default)()
+
+print('''You can perform operation
+1. Addition
+2. Subtraction
+3. Multiplication
+4. Division
+5. Module ''')
+
 # 18. Find a package in the Python standard library for dealing with JSON.
 # Import the library module and inspect the attributes of the module.
 # Use the help function to learn more about how to use the module.
