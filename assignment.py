@@ -199,10 +199,41 @@ def csv_as_dict(file, ref_header, delimiter=None):
 # 15. Imagine you are designing a banking application. What would a
 # customer look like? What attributes would she have? What methods
 # would she have?
+class Bank_Account: 
+    def __init__(self): 
+        self.balance=0
+        print("Hello!!! Welcome to the Deposit & Withdrawal Machine") 
+  
+    def deposit(self): 
+        amount=float(input("Enter amount to be Deposited: ")) 
+        self.balance += amount 
+        print("\n Amount Deposited:",amount) 
+  
+    def withdraw(self): 
+        amount = float(input("Enter amount to be Withdrawn: ")) 
+        if self.balance>=amount: 
+            self.balance-=amount 
+            print("\n You Withdrew:", amount) 
+        else: 
+            print("\n Insufficient balance  ") 
+  
+    def display(self): 
+        print("\n Net Available Balance=",self.balance) 
 # 16. Imagine you are creating a Super Mario game. You need to define a
 # class to represent Mario. What would it look like? If you aren't familiar
 # with SuperMario, use your own favorite video or board game to model
 # a player.
+class Dianosor:
+    def __init__(self): 
+        self.score=0
+        self.speed=0.1
+    def addscore(self):
+        self.score+=1
+        self.speed+=0.1
+    def result(self):
+        print(self.score)
+        
+
 # 17. Write a program that serves as a basic calculator. It asks for two
 # numbers, then it asks for an operator. Gracefully deal with input that
 # doesn't cleanly convert to numbers. Deal with division by zero errors.
@@ -249,6 +280,21 @@ print('''You can perform operation
 # Use the help function to learn more about how to use the module.
 # Serialize a dictionary mapping 'name' to your name and 'age' to your
 # age, to a JSON string. Deserialize the JSON back into Python.
+import json
+dictionary={'name':name,'age':age}
+json_object = json.dumps(dictionary, indent = 4)   
+print(json_object) 
+# seceralize
+with open('data.json') as json_file: 
+    data = json.load(json_file) 
+  
+    # Print the type of data variable 
+    print("Type:", type(data)) 
+  
+    # Print the data of dictionary 
+    print("\nName:", data['name']) 
+    print("\nAge:", data['age'])
+
 # 19. Write a Python class to find validity of a string of parentheses, '(', ')',
 # '{', '}', '[' and ']. These brackets must be close in the correct order, for
 # example "()" and "()[]{}" are valid but "[)", "({[)]" and "{{{" are invalid
