@@ -135,8 +135,18 @@ def binary_search(arr, low, high, key):
 # separator, so it will also convert to the kebab case
 # (i.e.this-is-camel-case) as well.
 camelcase='ThisIsCamelCased'
-def CameltoSnake(string_var,seperator):
-    for character in string_var:
+ 
+def CameltoSnake(str,seperator):
+    res = [str[0].lower()]
+    for c in str[1:]:
+        if c in ('ABCDEFGHIJKLMNOPQRSTUVWXYZ'):
+            res.append(seperator)
+            res.append(c.lower())
+        else:
+            res.append(c)
+     
+    return ''.join(res)
+    
     
 
 # 11. Create a variable, filename. Assuming that it has a three-letter
